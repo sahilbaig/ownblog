@@ -1,0 +1,33 @@
+html,body {
+    background-image: url('/static/back.jpg');
+    background-color: rgba(255,255,255,0.8);
+    background-blend-mode: lighten;
+    
+
+}
+
+.title-text {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 30px;
+    color: blueviolet;
+    align-self: center;
+}
+
+.margins{
+    margin-top: 15px;
+    margin-bottom: :15px;
+}
+
+.row-margin{
+    margin-left: 10px;
+}
+
+.centered {
+    margin: 0 auto;
+  }
+
+.div_border{
+    border-width:2px;
+    border-style:solid;
+    border-color:black;
+}

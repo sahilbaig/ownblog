@@ -96,3 +96,16 @@ def edit_post(post_id):
     form.post.data=post.content
     return render_template("edit.html", form=form)
 
+@app.route("/post/delete/<int:post_id>" , methods=["POST"])
+def delete_post(post_id):
+    post= Post.query.filter_by(id=post_id).first()
+    if current_user!=post.author:
+        return redirect(url_for('home'))
+    else:
+        db.session.delete(post)
+        db.session.commit()
+        flash('Your Post has been deleted' , 'success')
+        return redirect (url_for('home'))
+    
+
+

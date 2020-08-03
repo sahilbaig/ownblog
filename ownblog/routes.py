@@ -80,3 +80,19 @@ def see_post(post_id):
 def see_user(user_id):
     user= User.query.filter_by(id=user_id).first()
     return render_template('see_user.html' , user=user)
+
+@app.route("/post/edit/<int:post_id>" , methods=["post","GET"])
+def edit_post(post_id):
+    post= Post.query.filter_by(id=post_id).first()
+    if current_user!=post.author:
+        return redirect(url_for('home'))
+    form= PostForm()
+    if form.validate_on_submit():
+        post.title= form.title.data
+        post.content = form.post.data
+        db.session.commit()
+        return redirect(url_for('home'))
+    form.title.data= post.title
+    form.post.data=post.content
+    return render_template("edit.html", form=form)
+

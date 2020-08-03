@@ -24,12 +24,6 @@
           <li class="nav-item ">
             <a class="nav-link" href="{{url_for('home')}}" >Home</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{url_for('register')}}">Register</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{url_for('login')}}">Login</a>
-          </li>
           {%if current_user.is_authenticated%}
           <li class="nav-item">
             <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
@@ -40,6 +34,14 @@
           <li class="nav-item">
             <a class="nav-link" href="{{url_for('see_user', user_id=current_user.id)}}">Account</a>
           </li>
+          {%else%}
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('register')}}">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('login')}}">Login</a>
+          </li>
+
           {%endif%}
         </ul>
       </div>

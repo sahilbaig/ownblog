@@ -20,4 +20,15 @@
         </div>
     </div>
 </div>
+<div >
+    {%if post.author==current_user%}
+    <div class="container">
+        <div class="row">
+            <a class="button btn-primary m-2" href="{{url_for('edit_post', post_id=post.id )}}">Update</a>
+        </div>
+    </div>    
+    {%endif%}
+
+
+</div>
 {%endblock%}

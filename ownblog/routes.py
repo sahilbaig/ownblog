@@ -1,7 +1,7 @@
 from ownblog import app ,bcrypt ,db
 from flask import Flask ,render_template , redirect ,url_for,flash ,request
-from ownblog.forms import LoginForm , RegistrationForm ,PostForm
-from ownblog.models import User , Post
+from ownblog.forms import LoginForm , RegistrationForm ,PostForm , CommentForm
+from ownblog.models import User , Post ,Comment
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import login_user ,current_user, logout_user ,login_required
 
@@ -72,10 +72,17 @@ def downvote(post_id):
     db.session.commit()
     return redirect(url_for('home'))
 
-@app.route("/post/<int:post_id>")
+@app.route("/post/<int:post_id>" , methods=["post","get"])
 def see_post(post_id):
     post=Post.query.filter_by(id=post_id).first()
-    return render_template('see_post.html',post=post)
+    comment_on_post = Comment.query.filter_by(post_id=post_id).all()
+    form= CommentForm()
+    if form.validate_on_submit():
+        comment_add= Comment(content=form.post.data , author_id=current_user.id , post_id=post.id)
+        db.session.add(comment_add)
+        db.session.commit()
+        return redirect(url_for('see_post',post_id=post.id))
+    return render_template('see_post.html',post=post , comments=comment_on_post , form=form)
 
 @app.route("/user/<int:user_id>")
 def see_user(user_id):

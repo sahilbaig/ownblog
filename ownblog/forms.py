@@ -18,3 +18,6 @@ class PostForm(FlaskForm):
     post=TextAreaField('Post' , validators=[DataRequired()])
     submit= SubmitField('Post It')
     
+class CommentForm(FlaskForm):
+    post=TextAreaField('Post' , validators=[DataRequired()])
+    submit= SubmitField('Comment')

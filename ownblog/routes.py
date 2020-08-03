@@ -1,5 +1,5 @@
 from ownblog import app ,bcrypt ,db
-from flask import Flask ,render_template , redirect ,url_for,flash
+from flask import Flask ,render_template , redirect ,url_for,flash ,request
 from ownblog.forms import LoginForm , RegistrationForm ,PostForm
 from ownblog.models import User , Post
 from flask_sqlalchemy import SQLAlchemy
@@ -8,7 +8,8 @@ from flask_login import login_user ,current_user, logout_user ,login_required
 @app.route("/home")
 @app.route("/")
 def home():
-    posts= Post.query.all()
+    page= request.args.get('page', 1, type=int)
+    posts= Post.query.paginate(page=page, per_page=4)
     return render_template('home.html',title="Meow Blogs", posts=posts)
 
 @app.route("/s")
